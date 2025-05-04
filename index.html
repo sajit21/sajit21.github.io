@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Developer</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <section id="home">
+        <div class="nav">
+         <div class="first-nav">
+            <img src="hamburger.svg" alt="ham" id="ham">
+            <div class="left-nav">
+                Sajit Maharjan
+            </div>
+            <div class="right-nav">
+                <ul class="nav-list-first">
+                <a href="#home"><li class="list-items">Home</li></a>
+                <a href="#about"><li class="list-items">About</li></a>
+                <a href="#skills"><li class="list-items">Skills</li></a>
+                <a href="#projects"><li class="list-items">Projects</li> </a>
+
+                <a href="#contact"><li class="list-items">Contact me</li></a>
+                 </ul>
+          </div>
+        </div>
+        <div class="second-nav">
+            <ul class="nav-list-second">
+                <a href="#home"><li class="list-items">Home</li></a>
+                <a href="#about"><li class="list-items">About</li></a>
+                <a href="#skills"><li class="list-items">Skills</li></a>
+                <a href="#projects"><li class="list-items">Projects</li> </a>
+
+                <a href="#contact"><li class="list-items">Contact me</li></a>
+                 </ul>
+         </div>
+        </div>
+        <main>
+            <div class="left-main">
+                <div class="details">
+                    <div class="line1 line"><span id="name">I'm </span><span id="name">Sajit Maharjan</span></div>
+                    <div class="line2 line"><span id="profession">Web Developer</span></div>
+                    <div class="line3 line"><span id="more">For More Click Below</span></div>
+                    <div class="icon"><img src="down.svg" alt="down"></div>
+
+                   
+                    <button id="btn"> <a href="CV.pdf">Download CV</a></button>
+                </div>
+            </div>
+            <div class="right-main">
+                <div class="image">
+                    <img src="image.jpg" alt="logo" class="logo">
+
+
+
+                </div>
+            </div>
+        </main>
+    </section>
+    <div class="seperate">
+
+    </div>
+    <section id="about">
+
+        <div class="heading">
+            About Me
+
+        </div>
+        <div class="about-details">
+           <div class="intro">
+           <p class="bio">
+            I am a self-taught web developer with a passion for creating innovative and efficient web solutions. 
+            My dedication to learning and mastering web technologies has equipped me with a strong foundation in front-end and back-end development, 
+            enabling me to tackle a variety of projects and challenges in the web development field.
+           </p>
+           </div>
+
+        </div>
+
+
+
+
+
+    </section>
+    <div class="seperate">
+        
+    </div>
+    
+    <section id="skills">
+
+            <div class="skills-container">
+              <h2 class="heading-skill">Skills</h2>
+              <div class="skills-logos">
+                <img src="assets/html.svg" alt="HTML">
+                <img src="assets/css.svg" alt="CSS">
+                <img src="assets/js.svg" alt="JavaScript">
+                <img src="assets/node.svg" alt="Node.js">
+                <img src="assets/react.svg" alt="React">
+                <img src="assets/postgre.svg" alt="PostgreSQL">
+                <img src="assets/mongo.svg" alt="MongoDB">
+                <img src="assets/typescript.svg" alt="TypeScript">
+                <img src="assets/php.svg" alt="PHP">
+                <img src="assets/postman.svg" alt="postman">
+              </div>
+            </div>
+
+    </section>
+    <div class="seperate">  
+    </div>
+
+    <section id="projects" class="projects">
+        <h2 class="heading-project">My Projects</h2>
+        <div class="project-container">
+          <div class="project-card">
+            <img src="assets/Gbazar.png" alt="Project 1 Screenshot">
+            <h3>Gaming Bazar</h3>
+            <p>An e-commerce site to buy gaming accessories using MERN Stack.</p>
+            <a href="https://github.com/Sajit21/Ecommerce_Main.git" target="_blank">View Code</a>
+          </div>
+      
+          <div class="project-card">
+            <img src="assets/netflix.png" alt="Project 2 Screenshot">
+            <h3>Netflix Clone</h3>
+            <p>Backend access using Nodejs and Postman</p>
+            <a href="https://github.com/Sajit21/Netflix.git" target="_blank">View Code</a>
+          </div>
+      
+          <div class="project-card">
+            <img src="assets/SFMS.png" alt="Project 3 Screenshot">
+            <h3> Management System</h3>
+            <p>PHP & MySQL app for students to pay college fees online with admin control panel.</p>
+            <a href="https://github.com/Sajit21/Management-System.git" target="_blank">View Code</a>
+          </div>
+        </div>
+      </section>
+
+
+
+
+<div class="seperate">  
+</div>
+
+    <section id="contact">
+        <div class="left-contact">
+            <div class="icons"><a href="https://www.facebook.com/sajitmaharjan" target="_blank"><img src="facebook.svg"  alt="fb"></a></div>
+             <div class="icons"><a href="https://www.instagram.com/sawzeet_mhrzn" target="_blank"><img src="insta.svg" alt="insta"></a></div><br>
+            <div class="icons"><a href="https://www.github.com/sajit21" target="_blank"><img src="git.svg" alt="github"></a></div>
+            <div class="icons"><a href="https://www.linkdin.com/Sajit Maharjan" target="_blank"><img src="link.svg" alt="linkdin"></a></div>
+
+        </div>
+        <form action="https://api.web3forms.com/submit" method="POST">
+        <div class="right-contact">
+             <input type="hidden" name="access_key" value="6396dad7-2c18-4180-a3e8-0287ddffe3ab">
+
+            <div class="heading-contact">
+
+                Contact Me
+
+            </div>
+
+     
+            <div id="form">
+                <input type="text" name="name" placeholder="Enter your name">
+                 <input type="email" name="email" placeholder="****@gmail.com">
+                <textarea id="message" name="message" rows="5" placeholder="Ask me anything"></textarea>
+          
+             <button class="btn">Submit</button>
+            </div>
+        
+         </div>
+        </form>
+            
+        <!-- </div> -->
+    </section>
+
+
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="script.js"> </script>
+    
+</body>
+</html>
