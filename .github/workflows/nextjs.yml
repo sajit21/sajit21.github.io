@@ -24,8 +24,9 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
           cache: "npm"
+          cache-dependency-path: portfolio/package-lock.json
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -43,16 +44,18 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+        working-directory: portfolio
 
       - name: Build with Next.js
         run: npx next build
+        working-directory: portfolio
         env:
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://sajitmaharjan.com.np' }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: portfolio/out
 
   deploy:
     environment:
