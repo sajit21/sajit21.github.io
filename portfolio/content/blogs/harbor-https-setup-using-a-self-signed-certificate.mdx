@@ -1,0 +1,547 @@
+---
+title: "Harbor HTTPS Setup Using a Self-Signed Certificate "
+description: "A step-by-step guide to configuring HTTPS for Harbor using a self-signed certificate and enabling secure image pushes from Docker and GitLab CI/CD"
+date: "2026-7-15"
+tags: ["docker-compose", "self-hosting", "DevOps"]
+---
+
+
+This guide explains how to secure a Harbor container registry with a self-signed TLS certificate and configure Docker clients and GitLab CI/CD to trust the registry.
+
+> **Assumptions**
+>
+> - Harbor server IP: `10.10.10.3`
+> - Replace the IP or hostname throughout this guide with your own Harbor server details.
+
+---
+
+# Architecture
+
+```text
+                 +----------------------+
+                 |    Harbor Registry   |
+                 |   HTTPS (443/TLS)    |
+                 +----------+-----------+
+                            |
+                    harbor.crt / harbor.key
+                            |
+        +-------------------+-------------------+
+        |                                       |
++---------------+                      +----------------+
+| Docker Client |                      | GitLab Runner  |
+| /etc/docker/  |                      | Docker-in-Docker|
+| certs.d/      |                      | cert mounted    |
++---------------+                      +----------------+
+```
+
+---
+
+# Step 1: Create a Directory for Certificates
+
+```bash
+mkdir -p ~/harbor-certs
+cd ~/harbor-certs
+```
+
+---
+
+# Step 2: Generate a Private Key
+
+Generate a 4096-bit RSA private key.
+
+```bash
+openssl genrsa -out harbor.key 4096
+```
+
+Generated file:
+
+```
+harbor.key
+```
+
+---
+
+# Step 3: Generate a Certificate Signing Request (CSR)
+
+```bash
+openssl req -sha512 -new \
+-key harbor.key \
+-out harbor.csr
+```
+
+Example values:
+
+| Field | Example |
+|--------|---------|
+| Country Name | NP |
+| State | Bagmati |
+| Locality | Kathmandu |
+| Organization | Harbor |
+| Organizational Unit | IT |
+| Common Name (CN) | 10.10.10.3 |
+| Email | *(Leave blank)* |
+
+> **Note**
+>
+> If Harbor is accessed using an IP address, use the IP as the Common Name.
+>
+> If Harbor is accessed using a domain, use the domain as the Common Name.
+
+---
+
+# Step 4: Create the X.509 Extension File
+
+Create:
+
+```bash
+nano v3.ext
+```
+
+Add:
+
+```ini
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage=digitalSignature,nonRepudiation,keyEncipherment,dataEncipherment
+extendedKeyUsage=serverAuth
+subjectAltName=@alt_names
+
+[alt_names]
+IP.1=10.10.10.3
+DNS.1=harbor.local
+```
+
+Replace:
+
+- `10.10.10.3` → Harbor IP
+- `harbor.local` → Harbor hostname (optional)
+
+If using only an IP:
+
+```ini
+[alt_names]
+IP.1=10.10.10.3
+```
+
+---
+
+# Step 5: Generate the Self-Signed Certificate
+
+```bash
+openssl x509 -req \
+-days 3650 \
+-in harbor.csr \
+-signkey harbor.key \
+-out harbor.crt \
+-extfile v3.ext
+```
+
+Generated files:
+
+```
+harbor.crt
+harbor.key
+```
+
+---
+
+# Step 6: Verify the Certificate
+
+```bash
+openssl x509 -text -noout -in harbor.crt
+```
+
+Verify the output contains:
+
+```text
+X509v3 Subject Alternative Name:
+    IP Address:10.10.10.3
+```
+
+---
+
+# Step 7: Move Certificates to Harbor
+
+Create Harbor's certificate directory.
+
+```bash
+sudo mkdir -p /data/cert
+```
+
+Copy the certificate and key.
+
+```bash
+sudo cp harbor.crt /data/cert/
+sudo cp harbor.key /data/cert/
+```
+
+Verify:
+
+```bash
+ls -l /data/cert
+```
+
+Expected:
+
+```text
+harbor.crt
+harbor.key
+```
+
+---
+
+# Step 8: Configure Harbor
+
+Edit:
+
+```bash
+sudo nano harbor.yml
+```
+
+Update:
+
+```yaml
+hostname: 10.10.10.3
+
+https:
+  port: 443
+  certificate: /data/cert/harbor.crt
+  private_key: /data/cert/harbor.key
+```
+
+---
+
+# Step 9: Restart Harbor
+
+> **Note**
+>
+> Harbor in this guide is deployed using Docker Compose.
+
+Navigate to the Harbor installation directory.
+
+```bash
+cd /path/to/harbor
+```
+
+Generate Harbor configuration.
+
+```bash
+sudo ./prepare
+```
+
+Restart Harbor.
+
+```bash
+sudo docker compose down
+sudo docker compose up -d
+```
+
+Verify containers.
+
+```bash
+sudo docker ps
+```
+
+Expected status:
+
+```text
+Up
+```
+
+---
+
+# Step 10: Trust the Harbor Certificate on Docker Clients
+
+Every Docker client that pushes or pulls images must trust Harbor's certificate.
+
+Create Docker's certificate directory.
+
+Using IP:
+
+```bash
+sudo mkdir -p /etc/docker/certs.d/10.10.10.3
+```
+
+Using hostname:
+
+```bash
+sudo mkdir -p /etc/docker/certs.d/harbor.local
+```
+
+Copy the certificate.
+
+```bash
+sudo cp harbor.crt /etc/docker/certs.d/10.10.10.3/ca.crt
+```
+
+or
+
+```bash
+sudo cp harbor.crt /etc/docker/certs.d/harbor.local/ca.crt
+```
+
+Restart Docker.
+
+```bash
+sudo systemctl restart docker
+```
+
+---
+
+# Step 11: Test Harbor Login
+
+```bash
+docker login 10.10.10.3
+```
+
+Expected:
+
+```text
+Login Succeeded
+```
+
+---
+
+# Step 12: Push an Image
+
+Tag the image.
+
+Using IP:
+
+```bash
+docker tag nginx:latest 10.10.10.3/project/nginx:v1
+```
+
+Using hostname:
+
+```bash
+docker tag nginx:latest harbor.local/project/nginx:v1
+```
+
+Push.
+
+```bash
+docker push 10.10.10.3/project/nginx:v1
+```
+
+or
+
+```bash
+docker push harbor.local/project/nginx:v1
+```
+
+If successful, Harbor HTTPS has been configured correctly.
+
+---
+
+# Troubleshooting
+
+## Login Issues
+
+```bash
+docker login 10.10.10.3
+```
+
+---
+
+## Harbor Configuration
+
+```bash
+cat harbor.yml
+```
+
+---
+
+## Running Containers
+
+```bash
+docker ps
+```
+
+---
+
+## Harbor Logs
+
+```bash
+docker compose logs
+```
+
+---
+
+## HTTPS Connectivity
+
+```bash
+curl -vk https://10.10.10.3
+```
+
+---
+
+# Summary
+
+```text
+Generate Private Key
+        │
+        ▼
+Generate CSR
+        │
+        ▼
+Create SAN Extension
+        │
+        ▼
+Generate Self-Signed Certificate
+        │
+        ▼
+Configure Harbor HTTPS
+        │
+        ▼
+Restart Harbor
+        │
+        ▼
+Trust Certificate on Docker Clients
+        │
+        ▼
+Login & Push Images
+```
+
+---
+
+# Using Harbor in GitLab CI/CD
+
+When using **Docker-in-Docker (DinD)**, the job container communicates with the Docker daemon running inside the service container.
+
+The Docker daemon must trust Harbor's certificate.
+
+---
+
+## Docker Build Template
+
+```yaml
+.docker_build:
+  stage: docker
+
+  image: docker:25
+
+  services:
+    - name: docker:25-dind
+
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_HOST: tcp://docker:2375
+    BUILDKIT_PROGRESS: plain
+
+  before_script:
+    - echo "=== checking cert mount ==="
+    - ls -la /etc/docker/certs.d/ || echo "certs.d missing"
+    - ls -la /etc/docker/certs.d/harbor.local/ || echo "directory missing"
+    - cat /etc/docker/certs.d/harbor.local/ca.crt || echo "certificate missing"
+    - echo "=== end check ==="
+
+    - echo "$HARBOR_PASSWORD" | docker login "$HARBOR_REGISTRY" \
+      -u "$HARBOR_USERNAME" \
+      --password-stdin
+```
+
+---
+
+# Configure GitLab Runner
+
+Copy Harbor's CA certificate.
+
+```bash
+sudo mkdir -p /etc/docker/certs.d/harbor.local
+sudo cp harbor.crt /etc/docker/certs.d/harbor.local/ca.crt
+```
+
+---
+
+Edit GitLab Runner.
+
+```bash
+sudo nano /etc/gitlab-runner/config.toml
+```
+
+Update the Docker runner.
+
+```toml
+[[runners]]
+  executor = "docker"
+
+  [runners.docker]
+    privileged = true
+
+    volumes = [
+      "/cache",
+      "/etc/docker/certs.d/harbor.local:/etc/docker/certs.d/harbor.local:ro",
+      "/etc/docker/certs.d/10.10.10.3:/etc/docker/certs.d/10.10.10.3:ro"
+    ]
+
+    extra_hosts = [
+      "harbor.local:10.10.10.3"
+    ]
+```
+
+The important configuration is:
+
+- Mount Harbor's CA certificate.
+- Add the Harbor hostname using `extra_hosts`.
+
+This ensures the Docker daemon inside the GitLab Runner trusts Harbor's self-signed certificate.
+
+---
+
+# Example CI Job
+
+```yaml
+docker-backend:
+  extends: .docker_build
+
+  needs:
+    - backend-test
+
+  script:
+    - docker build \
+      -f "${CI_PROJECT_DIR}/backend/Dockerfile" \
+      -t "${BACKEND_IMAGE}:${CI_COMMIT_REF_SLUG}" \
+      -t "${BACKEND_IMAGE}:${CI_COMMIT_SHORT_SHA}" \
+      -t "${BACKEND_IMAGE}:latest" \
+      "${CI_PROJECT_DIR}/backend"
+
+    - docker push "${BACKEND_IMAGE}:${CI_COMMIT_REF_SLUG}"
+    - docker push "${BACKEND_IMAGE}:${CI_COMMIT_SHORT_SHA}"
+    - docker push "${BACKEND_IMAGE}:latest"
+
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+
+    - if: '$CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "main"'
+      changes:
+        - backend/**/*
+```
+
+---
+
+# CI/CD Workflow
+
+```text
+Developer Push
+       │
+       ▼
+GitLab Pipeline
+       │
+       ▼
+Docker Build
+       │
+       ▼
+Docker Login
+       │
+       ▼
+Harbor Certificate Validation
+       │
+       ▼
+Push Image to Harbor
+       │
+       ▼
+Deployment
+```

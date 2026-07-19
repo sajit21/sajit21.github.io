@@ -1,0 +1,84 @@
+---
+title: "When Vercel Got Hacked: Here's What I Did."
+description: "How I responded after Vercel's security incident by assessing risk, rotating secrets, verifying security rules, and migrating our corporate website to a new hosting platform."
+date: "2026-04-26"
+tags: ["Vercel", "Security", "Firebase", "DevOps", "Cloudinary"]
+---
+
+# When Vercel Got Hacked: Here's What I Did.
+
+I woke up to a notification I never wanted to see. Vercel, the platform I'd trusted with multiple project demos and my company's live corporate website, had a security incident. Not the smartest hosting decision in hindsight, but Vercel's generous feature set had made it hard to say no at the time.
+
+My first reaction was pure shock. My second was: where do I even start?
+
+## What I Was Running on Vercel
+
+Before panicking, I needed to understand what was actually at risk. My setup wasn't complicated, but it had moving parts:
+
+- A dynamic frontend deployed on Vercel
+- Firebase as the backend
+- A contact and careers page with form submissions (write operations)
+- Google reCAPTCHA v2 to block spam bots
+- Gmail App Password for sending emails via SMTP
+- Cloudinary for image storage
+
+Most of the site was read-only. But those forms and the environment variables sitting in Vercel's dashboard were what kept me up.
+
+## Step 1: Don't Panic, Map the Blast Radius
+
+The worst thing I could have done was rotate every key blindly at once. Instead, I asked myself: if each of these secrets leaked, what's the actual damage?
+
+That question changed everything. Not all API keys are equal. Some are annoying to lose. Some are catastrophic.
+
+## Step 2: Rotate by Priority
+
+### Gmail App Password — first, no debate.
+
+This one could be abused immediately—spam campaigns, phishing emails sent from my actual inbox. I revoked it, generated a new one, and updated it in Vercel within minutes.
+
+### Cloudinary API key — second.
+
+If someone had this, they could upload or delete assets and rack up costs on my account. New key, updated, done.
+
+### Firebase API key — third, and this one's nuanced.
+
+Lot of developers get wrong here: a leaked Firebase API key is not automatically a disaster. Firebase keys are actually designed to be exposed on the client side. What protects your data are your Firestore and Storage security rules.
+
+I checked mine. The rules were locked down, users could only read, not write. So while I still rotated the key (created a new one in Google Cloud Console, updated the env, deleted the old one), the actual risk here was low.
+
+## Step 3: Clean Up the Environment Variables
+
+After rotating, I did something I honestly should have done long before any incident:
+
+- Marked all sensitive variables as "sensitive" in Vercel so they can't be read back through the dashboard
+- Removed any old or unused variables that had been sitting there
+- Double-checked that nothing secret was slipping into client-side code
+
+## Step 4: Verify the Bot Protection
+
+Since my forms rely on reCAPTCHA v2, I checked that:
+
+- The correct keys were still active
+- Domain restrictions were properly configured
+- Form submissions were working as expected after all the changes
+
+reCAPTCHA keys are public-facing by design, but misconfiguration can still cause problems.
+
+## What I Learned
+
+Not all secrets carry the same weight. A Gmail App Password and a Firebase API key are completely different levels of risk. Triage by impact, not just by exposure.
+
+Security rules are your real backend defence. If your Firestore rules are open, a leaked Firebase key is a disaster. If they're locked, it's barely an inconvenience. Know which situation you're in before you assume the worst.
+
+Incident or not, rotate secrets regularly. This whole scramble revealed that I hadn't thought about rotation since the project launched. That changes now.
+
+## The Outcome
+
+No data loss. No service disruption. The corporate site stayed live the entire time.
+
+But the incident forced me to actually look at my security posture and what I found was a setup that worked but hadn't been thought through carefully. Now it has been.
+
+The day after, I made one more decision: I migrated the corporate website off Vercel entirely and moved it to our company's hosting platform, A2 Hosting. It felt like the right call—more control, more reliability, and a hosting environment our team already trusted for other internal work. Sometimes an incident doesn't just change how you configure things. It changes where you put them.
+
+Sometimes a scare is the most productive thing that can happen to a project.
+```

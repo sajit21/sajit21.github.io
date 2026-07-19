@@ -1,0 +1,239 @@
+---
+title: "Multi-Build Stage in Docker"
+description: "Learn how Docker multi-stage builds reduce image size by separating the build environment from the runtime environment using Node.js and Nginx."
+date: "2026-05-01"
+tags: ["Docker", "DevOps", "Containerization", "Nginx", "Node.js"]
+---
+
+# Multi-Build Stage in Docker
+
+We write a Dockerfile to package our entire application into a container image. Building an image follows a series of steps, and although a single-stage Dockerfile works, it often produces images between **300 MB and 800 MB** because it includes build tools, source code, and unnecessary dependencies.
+
+To create smaller, production-ready images, Docker provides **multi-stage builds**, allowing us to separate the build environment from the runtime environment.
+
+## Dockerfile
+
+```dockerfile
+# -------- Step 1: Build the frontend --------
+FROM node:18 AS build
+
+WORKDIR /app
+
+COPY package.json .
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+# -------- Step 2: Serve using Nginx --------
+FROM nginx:alpine
+
+# Remove default nginx static files
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy build output to nginx directory
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Expose port
+EXPOSE 80
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+---
+
+# Understanding Each Stage
+
+## Stage 1: Build Environment
+
+### `FROM node:18 AS build`
+
+The first stage uses the official **Node.js 18** image and assigns it the name **build**.
+
+This environment contains everything needed to install dependencies and compile the frontend application.
+
+```dockerfile
+FROM node:18 AS build
+```
+
+---
+
+### `WORKDIR /app`
+
+Creates (or switches to) the `/app` directory inside the container.
+
+Every subsequent command executes from this location.
+
+```dockerfile
+WORKDIR /app
+```
+
+---
+
+### `COPY package.json .`
+
+Copies the `package.json` file into the working directory.
+
+Only copying dependency files first allows Docker to cache the installation layer, speeding up future builds.
+
+```dockerfile
+COPY package.json .
+```
+
+---
+
+### `RUN npm install`
+
+Installs all project dependencies defined in `package.json`.
+
+```dockerfile
+RUN npm install
+```
+
+---
+
+### `COPY . .`
+
+Copies the remaining application source code into the container.
+
+```dockerfile
+COPY . .
+```
+
+---
+
+### `RUN npm run build`
+
+Runs the application's production build.
+
+For React applications, this typically generates optimized static files inside:
+
+```text
+/app/build
+```
+
+---
+
+# Stage 2: Runtime Environment
+
+After the application has been built, Docker starts a completely new image.
+
+Unlike the first stage, this image contains **only the files required to run the application**, making it significantly smaller.
+
+---
+
+### `FROM nginx:alpine`
+
+Uses the lightweight Alpine version of Nginx as the web server.
+
+Because it contains only Nginx and its required libraries, the final image is much smaller than one based on Node.js.
+
+```dockerfile
+FROM nginx:alpine
+```
+
+---
+
+### `RUN rm -rf /usr/share/nginx/html/*`
+
+Removes the default HTML files included with the Nginx image.
+
+This ensures that only the application's build output is served.
+
+```dockerfile
+RUN rm -rf /usr/share/nginx/html/*
+```
+
+---
+
+### `COPY --from=build /app/build /usr/share/nginx/html`
+
+Copies the compiled application from the **build stage** into the Nginx web directory.
+
+Notice that Docker copies files directly from the previous stage without rebuilding anything.
+
+```dockerfile
+COPY --from=build /app/build /usr/share/nginx/html
+```
+
+This is the key feature of a **multi-stage build**.
+
+---
+
+### `EXPOSE 80`
+
+Documents that the container serves traffic on port **80**.
+
+It does **not** publish the port automatically; port mapping is still required when running the container.
+
+```dockerfile
+EXPOSE 80
+```
+
+Example:
+
+```bash
+docker run -p 8080:80 my-app
+```
+
+---
+
+### `CMD ["nginx", "-g", "daemon off;"]`
+
+Starts the Nginx server.
+
+Normally, Nginx runs as a background daemon. Docker containers require a foreground process to remain alive, so the `daemon off;` option keeps Nginx running in the foreground.
+
+```dockerfile
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+---
+
+# Why Use Multi-Stage Builds?
+
+Without multi-stage builds, the final image contains:
+
+- Source code
+- Node.js runtime
+- npm
+- Development dependencies
+- Build tools
+- Temporary build files
+
+These unnecessary files increase image size and may expose tools that aren't needed in production.
+
+With multi-stage builds, the final image contains only:
+
+- Compiled application files
+- Nginx
+- Runtime dependencies
+
+This approach results in:
+
+- Smaller Docker images
+- Faster image downloads
+- Faster deployments
+- Lower storage usage
+- Reduced attack surface
+- Cleaner production environments
+
+---
+
+# Typical Image Size Comparison
+
+| Build Strategy | Approximate Size |
+|---------------|-----------------:|
+| Single-stage build | 300–800 MB |
+| Multi-stage build | 20–80 MB |
+
+The exact size depends on the application and base images used, but multi-stage builds consistently produce much smaller production images.
+
+---
+
+# Conclusion
+
+Multi-stage builds are one of Docker's most valuable features for production deployments. By separating the build environment from the runtime environment, we eliminate unnecessary dependencies and significantly reduce image size.
+
+For frontend applications, a common pattern is to build the application using **Node.js** and serve the compiled files with **Nginx**, resulting in a lightweight, secure, and efficient production image.
