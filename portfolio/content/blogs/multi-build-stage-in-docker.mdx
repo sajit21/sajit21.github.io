@@ -5,11 +5,6 @@ date: "2026-05-01"
 tags: ["Docker", "DevOps", "Containerization", "Nginx", "Node.js"]
 ---
 
-# Multi-Build Stage in Docker
-
-We write a Dockerfile to package our entire application into a container image. Building an image follows a series of steps, and although a single-stage Dockerfile works, it often produces images between **300 MB and 800 MB** because it includes build tools, source code, and unnecessary dependencies.
-
-To create smaller, production-ready images, Docker provides **multi-stage builds**, allowing us to separate the build environment from the runtime environment.
 
 ## Dockerfile
 
