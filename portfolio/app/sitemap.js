@@ -25,6 +25,12 @@ export default function sitemap() {
       priority: 0.9,
     },
     {
+      url: `${site.url}/experience`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
       url: `${site.url}/contacts`,
       lastModified: new Date(),
       changeFrequency: "monthly",
