@@ -79,7 +79,7 @@ function ProfileCard() {
 
 
 <div className="relative w-64 sm:w-72">
-  <div className="relative aspect-square overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 shadow-lg shadow-black/20">
+  <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 shadow-lg shadow-black/20">
     <Image
       src="/images/image.jpeg"
       alt="Profile"

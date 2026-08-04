@@ -26,6 +26,15 @@ export function generateBlogPostMetadata(post) {
   });
 }
 
+export function generateExperienceMetadata() {
+  return generateSiteMetadata({
+    title: "Experience — Sajit Maharjan",
+    description:
+      "Professional background of Sajit Maharjan — work experience, projects, and education spanning DevOps, full-stack development, and computer science.",
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://sajitmaharjan.com.np"}/experience`,
+  });
+}
+
 export function generateContactsMetadata() {
   return generateSiteMetadata({
     title: "Contact — Sajit Maharjan",
