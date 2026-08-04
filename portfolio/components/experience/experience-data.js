@@ -1,5 +1,6 @@
 export const workExperience = [
   {
+    id: "startsmall-devops",
     company: "STARTsmall Pvt. Ltd.",
     role: "DevOps Engineer",
     period: "February 2026 – Present",
@@ -10,9 +11,10 @@ export const workExperience = [
     ],
   },
   {
+    id: "startsmall-webdev",
     company: "STARTsmall Pvt. Ltd.",
     role: "Web Developer",
-    period: "September 2025 – February 2026",
+    period: "September 2025 –February 2026",
     highlights: [
       "Developed scalable full-stack applications and backend system architectures utilizing Next.js, Node.js, PostgreSQL, and Firebase.",
       "Secured authentication and authorization for user-friendly platforms.",
@@ -20,6 +22,7 @@ export const workExperience = [
     ],
   },
   {
+    id: "bibhuti-frontend",
     company: "Bibhuti Solutions",
     role: "Frontend Developer",
     period: "February 2025 – August 2025",
@@ -44,6 +47,7 @@ highlights: [
   },
   {
     title: "CropCareAI — AI-Powered Plant Disease Detection Platform",
+    github: "https://github.com/sajit21/CropCareAi/",
     highlights: [
       "Developed a web application that diagnoses plant diseases from uploaded leaf images.",
       "Trained a deep learning computer vision model using Kaggle datasets.",
@@ -53,6 +57,7 @@ highlights: [
   },
   {
     title: "Gaming Bazar — E-Commerce Platform",
+    github: "https://github.com/sajit21/Ecommerce_Main",
     highlights: [
       "Developed a gaming marketplace with authentication and shopping functionality.",
       "Built using React.js, Node.js, MongoDB, and Redis.",
