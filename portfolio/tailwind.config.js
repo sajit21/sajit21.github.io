@@ -23,7 +23,7 @@ module.exports = {
           deep: "rgb(var(--color-secondary-deep) / <alpha-value>)",
         },
         surface: {
-          DEFAULT: "#e8e2da",
+          DEFAULT: "#dcd4c7",
           raised: "#f3efe9",
           overlay: "#ffffff",
         },
