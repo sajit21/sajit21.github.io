@@ -10,10 +10,10 @@ export default function ContactsPage() {
       <Container>
         <div className="mx-auto max-w-lg space-y-8">
           <div className="space-y-2">
-            <h1 className="text-2xl font-bold tracking-tight text-zinc-100 sm:text-3xl">
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
               Contact
             </h1>
-            <p className="text-sm text-zinc-400">
+            <p className="text-sm text-slate-700">
               Feel free to reach out through any of these platforms. I&apos;m always happy to
               connect.
             </p>

@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function ImageCaption({ src, alt, caption, width = 800, height = 450 }) {
   return (
     <figure className="my-8 space-y-3">
-      <div className="overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900">
+      <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
         <Image
           src={src}
           alt={alt}
@@ -14,7 +14,7 @@ export default function ImageCaption({ src, alt, caption, width = 800, height = 
         />
       </div>
       {caption && (
-        <figcaption className="text-center text-xs text-zinc-500">{caption}</figcaption>
+        <figcaption className="text-center text-xs text-slate-700">{caption}</figcaption>
       )}
     </figure>
   );

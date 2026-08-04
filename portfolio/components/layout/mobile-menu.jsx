@@ -20,12 +20,12 @@ export default function MobileMenu({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-zinc-950/98 backdrop-blur-sm sm:hidden">
+    <div className="fixed inset-0 z-50 bg-surface/95 backdrop-blur-sm sm:hidden">
       <div className="flex h-14 items-center justify-between px-4">
-        <span className="text-sm font-semibold text-zinc-100">Menu</span>
+        <span className="text-sm font-semibold text-slate-900">Menu</span>
         <button
           onClick={onClose}
-          className="rounded-md p-2 text-zinc-400 hover:text-zinc-100"
+          className="rounded-md p-2 text-slate-700 hover:text-slate-900"
           aria-label="Close menu"
         >
           <X className="h-5 w-5" />
@@ -37,7 +37,7 @@ export default function MobileMenu({ isOpen, onClose }) {
             key={item.href}
             href={item.href}
             onClick={onClose}
-            className="rounded-md px-3 py-2.5 text-sm font-medium text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-100"
+            className="rounded-md px-3 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-200 hover:text-slate-900"
           >
             {item.name}
           </Link>

@@ -4,6 +4,21 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
+/*
+ * Brand palette — single source of truth.
+ * Swap these values to re-theme the whole site (used via `brand` / `accent` tokens).
+ * Values are RGB triplets (R G B), no commas.
+ */
+:root {
+  --color-primary: 198 90 60; /* terracotta */
+  --color-primary-soft: 226 122 95; /* lighter terracotta */
+  --color-primary-deep: 164 68 40; /* deep terracotta */
+
+  --color-secondary: 124 139 111; /* olive */
+  --color-secondary-soft: 151 163 139; /* light olive */
+  --color-secondary-deep: 95 110 83; /* deep olive */
+}
+
 @layer base {
   html {
     -webkit-font-smoothing: antialiased;
@@ -11,21 +26,21 @@
   }
 
   body {
-    @apply bg-zinc-950 text-zinc-400;
+    @apply bg-surface text-slate-700;
   }
 
   ::selection {
-    @apply bg-zinc-700 text-zinc-100;
+    @apply bg-brand-soft text-slate-950;
   }
 }
 
 @layer components {
   .prose pre {
-    @apply border border-zinc-800 bg-zinc-900;
+    @apply border border-slate-200 bg-white;
   }
 
   .prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-    @apply rounded bg-zinc-800 px-1.5 py-0.5 text-xs font-medium text-zinc-300;
+    @apply rounded bg-slate-100 px-1.5 py-0.5 text-xs font-medium text-slate-800;
   }
 
   .prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::before,

@@ -8,10 +8,10 @@ function Heading({ level, children, ...props }) {
     : "";
 
   const sizes = {
-    1: "text-3xl font-bold tracking-tight text-zinc-100 mt-10 mb-4",
-    2: "text-2xl font-semibold tracking-tight text-zinc-100 mt-10 mb-3 pb-2 border-b border-zinc-800",
-    3: "text-lg font-semibold text-zinc-100 mt-8 mb-2",
-    4: "text-base font-semibold text-zinc-100 mt-6 mb-2",
+    1: "text-3xl font-bold tracking-tight text-slate-900 mt-10 mb-4",
+    2: "text-2xl font-semibold tracking-tight text-slate-900 mt-10 mb-3 pb-2 border-b border-slate-200",
+    3: "text-lg font-semibold text-slate-900 mt-8 mb-2",
+    4: "text-base font-semibold text-slate-900 mt-6 mb-2",
   };
 
   return (
@@ -28,7 +28,7 @@ export const MDXComponents = {
   h4: (props) => <Heading level={4} {...props} />,
 
   p: ({ children, ...props }) => (
-    <p className="mb-4 text-sm leading-relaxed text-zinc-400" {...props}>
+    <p className="mb-4 text-sm leading-relaxed text-slate-700" {...props}>
       {children}
     </p>
   ),
@@ -36,7 +36,7 @@ export const MDXComponents = {
   a: ({ href, children, ...props }) => (
     <a
       href={href}
-      className="text-sm font-medium text-zinc-300 underline underline-offset-4 decoration-zinc-700 transition-colors hover:text-zinc-100 hover:decoration-zinc-500"
+      className="text-sm font-medium text-slate-800 underline underline-offset-4 decoration-slate-700 transition-colors hover:text-slate-900 hover:decoration-slate-500"
       target={href?.startsWith("http") ? "_blank" : undefined}
       rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
       {...props}
@@ -46,13 +46,13 @@ export const MDXComponents = {
   ),
 
   ul: ({ children, ...props }) => (
-    <ul className="mb-4 list-disc space-y-1 pl-5 text-sm leading-relaxed text-zinc-400" {...props}>
+    <ul className="mb-4 list-disc space-y-1 pl-5 text-sm leading-relaxed text-slate-700" {...props}>
       {children}
     </ul>
   ),
 
   ol: ({ children, ...props }) => (
-    <ol className="mb-4 list-decimal space-y-1 pl-5 text-sm leading-relaxed text-zinc-400" {...props}>
+    <ol className="mb-4 list-decimal space-y-1 pl-5 text-sm leading-relaxed text-slate-700" {...props}>
       {children}
     </ol>
   ),
@@ -65,7 +65,7 @@ export const MDXComponents = {
 
   blockquote: ({ children, ...props }) => (
     <blockquote
-      className="my-6 border-l-2 border-zinc-700 pl-4 text-sm italic text-zinc-400"
+      className="my-6 border-l-2 border-slate-300 pl-4 text-sm italic text-slate-700"
       {...props}
     >
       {children}
@@ -94,7 +94,7 @@ export const MDXComponents = {
     }
     return (
       <code
-        className="rounded bg-zinc-800 px-1.5 py-0.5 text-xs font-medium text-zinc-300"
+        className="rounded bg-slate-100 px-1.5 py-0.5 text-xs font-medium text-slate-800"
         {...props}
       >
         {children}
@@ -102,10 +102,10 @@ export const MDXComponents = {
     );
   },
 
-  hr: (props) => <hr className="my-8 border-zinc-800" {...props} />,
+  hr: (props) => <hr className="my-8 border-slate-200" {...props} />,
 
   table: ({ children, ...props }) => (
-    <div className="my-6 overflow-x-auto rounded-lg border border-zinc-800">
+    <div className="my-6 overflow-x-auto rounded-lg border border-slate-200">
       <table className="w-full text-sm" {...props}>
         {children}
       </table>
@@ -113,31 +113,31 @@ export const MDXComponents = {
   ),
 
   thead: ({ children, ...props }) => (
-    <thead className="border-b border-zinc-800 bg-zinc-900/50" {...props}>
+    <thead className="border-b border-slate-200 bg-white/70" {...props}>
       {children}
     </thead>
   ),
 
   th: ({ children, ...props }) => (
-    <th className="px-4 py-2.5 text-left text-xs font-semibold text-zinc-300" {...props}>
+    <th className="px-4 py-2.5 text-left text-xs font-semibold text-slate-800" {...props}>
       {children}
     </th>
   ),
 
   td: ({ children, ...props }) => (
-    <td className="border-t border-zinc-800 px-4 py-2.5 text-zinc-400" {...props}>
+    <td className="border-t border-slate-200 px-4 py-2.5 text-slate-700" {...props}>
       {children}
     </td>
   ),
 
   strong: ({ children, ...props }) => (
-    <strong className="font-semibold text-zinc-200" {...props}>
+    <strong className="font-semibold text-slate-900" {...props}>
       {children}
     </strong>
   ),
 
   em: ({ children, ...props }) => (
-    <em className="text-zinc-300" {...props}>
+    <em className="text-slate-800" {...props}>
       {children}
     </em>
   ),

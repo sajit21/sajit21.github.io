@@ -12,12 +12,12 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-zinc-800/50 bg-zinc-950/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-surface/80 backdrop-blur-md">
       <Container>
         <div className="flex h-14 items-center justify-between">
           <Link
             href="/"
-            className="text-sm font-semibold tracking-tight text-zinc-100 transition-colors hover:text-zinc-300"
+            className="text-sm font-semibold tracking-tight text-slate-900 transition-colors hover:text-brand-soft"
           >
             Sajit Maharjan
           </Link>
@@ -31,8 +31,8 @@ export default function Navbar() {
                   href={item.href}
                   className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
                     isActive
-                      ? "text-zinc-100"
-                      : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100"
+                      ? "text-brand-soft"
+                      : "text-slate-700 hover:bg-slate-200 hover:text-slate-900"
                   }`}
                 >
                   {item.name}
@@ -42,7 +42,7 @@ export default function Navbar() {
           </nav>
 
           <button
-            className="inline-flex items-center justify-center rounded-md p-2 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-100 sm:hidden"
+            className="inline-flex items-center justify-center rounded-md p-2 text-slate-700 transition-colors hover:bg-slate-200 hover:text-slate-900 sm:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -52,7 +52,7 @@ export default function Navbar() {
       </Container>
 
       {mobileOpen && (
-        <div className="border-t border-zinc-800 bg-zinc-950/95 backdrop-blur-md sm:hidden">
+        <div className="border-t border-slate-200 bg-surface/95 backdrop-blur-md sm:hidden">
           <Container>
             <nav className="flex flex-col gap-1 py-3">
               {navigation.main.map((item) => {
@@ -64,8 +64,8 @@ export default function Navbar() {
                     onClick={() => setMobileOpen(false)}
                     className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                       isActive
-                        ? "bg-zinc-800 text-zinc-100"
-                        : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100"
+                        ? "bg-brand/10 text-brand-soft"
+                        : "text-slate-700 hover:bg-slate-200 hover:text-slate-900"
                     }`}
                   >
                     {item.name}

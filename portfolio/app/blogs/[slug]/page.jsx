@@ -53,18 +53,18 @@ export default async function BlogPostPage({ params }) {
     //     <div className="grid gap-12 lg:grid-cols-[1fr_200px]">
     //       <div>
     //         <header className="mb-8 space-y-4">
-    //           <div className="flex items-center gap-3 text-xs text-zinc-500">
+    //           <div className="flex items-center gap-3 text-xs text-slate-700">
     //             <time dateTime={post.date}>{formatDate(post.date)}</time>
     //             <span>&middot;</span>
     //             <span>{post.readingTime}</span>
     //           </div>
 
-    //           <h1 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
+    //           <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
     //             {post.title}
     //           </h1>
 
     //           {post.description && (
-    //             <p className="text-base text-zinc-400">{post.description}</p>
+    //             <p className="text-base text-slate-700">{post.description}</p>
     //           )}
 
     //           <div className="flex flex-wrap gap-1.5 pt-1">
@@ -96,18 +96,18 @@ export default async function BlogPostPage({ params }) {
     <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-12">
       <div className="min-w-0">
         <header className="mb-8 space-y-4">
-          <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-500 sm:text-sm">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-slate-700 sm:text-sm">
             <time dateTime={post.date}>{formatDate(post.date)}</time>
             <span>&middot;</span>
             <span>{post.readingTime}</span>
           </div>
 
-          <h1 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl lg:text-5xl">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
             {post.title}
           </h1>
 
           {post.description && (
-            <p className="max-w-3xl text-base leading-7 text-zinc-400 sm:text-lg">
+            <p className="max-w-3xl text-base leading-7 text-slate-700 sm:text-lg">
               {post.description}
             </p>
           )}

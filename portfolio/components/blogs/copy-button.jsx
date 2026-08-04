@@ -15,7 +15,7 @@ export default function CopyButton({ text }) {
   return (
     <button
       onClick={handleCopy}
-      className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300"
+      className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs text-slate-700 transition-colors hover:bg-slate-200 hover:text-slate-800"
       aria-label="Copy to clipboard"
     >
       {copied ? (

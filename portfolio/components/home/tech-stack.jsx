@@ -24,20 +24,20 @@ const technologies = [
 
 export default function TechStack() {
   return (
-    <section className="border-t border-zinc-800/50 py-16">
+    <section className="border-t border-slate-200/80 py-16">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8 space-y-1">
-          <h2 className="text-xl font-semibold tracking-tight text-zinc-100">
+          <h2 className="text-xl font-semibold tracking-tight text-slate-900">
             Technology Stack
           </h2>
-          <p className="text-sm text-zinc-400">Tools and platforms I work with daily</p>
+          <p className="text-sm text-slate-700">Tools and platforms I work with daily</p>
         </div>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
   {technologies.map((tech) => (
     <div
       key={tech.name}
-      className="group flex items-center justify-center gap-4 rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 transition-colors duration-200 hover:border-zinc-700 hover:bg-zinc-800/50"
+      className="group flex items-center justify-center gap-4 rounded-xl border border-slate-200 bg-white/70 p-5 transition-all duration-200 hover:border-brand/40 hover:bg-slate-200/50"
     >
       <Image
         src={tech.icon}
@@ -48,10 +48,10 @@ export default function TechStack() {
       />
 
       <div className="text-left">
-        <p className="text-sm font-semibold text-zinc-200">
+        <p className="text-sm font-semibold text-slate-900">
           {tech.name}
         </p>
-        <p className="mt-0.5 text-xs text-zinc-500">
+        <p className="mt-0.5 text-xs text-slate-700">
           {tech.category}
         </p>
       </div>

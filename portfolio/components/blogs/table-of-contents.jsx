@@ -29,7 +29,7 @@ export default function TableOfContents({ headings }) {
 
   return (
     <nav className="space-y-2">
-      <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+      <p className="text-xs font-semibold uppercase tracking-wider text-slate-700">
         On this page
       </p>
       <ul className="space-y-1">
@@ -42,8 +42,8 @@ export default function TableOfContents({ headings }) {
               href={`#${heading.id}`}
               className={`block py-0.5 text-sm transition-colors ${
                 activeId === heading.id
-                  ? "text-zinc-100"
-                  : "text-zinc-500 hover:text-zinc-300"
+                  ? "text-slate-900"
+                  : "text-slate-700 hover:text-slate-800"
               }`}
             >
               {heading.text}

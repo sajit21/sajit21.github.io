@@ -9,15 +9,15 @@ export default function HeroSection() {
         <div className="grid gap-12 lg:grid-cols-5 lg:items-start lg:gap-16">
           <div className="space-y-6 lg:col-span-3">
             <div className="space-y-2">
-              <h1 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
                 Sajit Maharjan
               </h1>
-              <p className="text-base font-medium text-zinc-400">
+              <p className="text-base font-medium text-brand-soft">
                 DevOps Engineer
               </p>
             </div>
 
-            <div className="space-y-4 text-sm leading-relaxed text-zinc-400">
+            <div className="space-y-4 text-sm leading-relaxed text-slate-700">
               <p>
                 I&apos;m a Computer Science graduate currently working as a DevOps Engineer. I specialize
                 in scaling applications, architecting infrastructure, and securing deployments across
@@ -36,22 +36,22 @@ export default function HeroSection() {
             </div>
 
             <div className="flex flex-wrap gap-3 pt-2">
-              <span className="inline-flex items-center rounded-full border border-zinc-700 bg-zinc-800/50 px-3 py-1 text-xs font-medium text-zinc-300">
+              <span className="inline-flex items-center rounded-full border border-slate-300 bg-white/60 px-3 py-1 text-xs font-medium text-slate-800 transition-colors duration-200 hover:border-brand/40 hover:text-brand-soft">
                 Kubernetes
               </span>
-              <span className="inline-flex items-center rounded-full border border-zinc-700 bg-zinc-800/50 px-3 py-1 text-xs font-medium text-zinc-300">
+              <span className="inline-flex items-center rounded-full border border-slate-300 bg-white/60 px-3 py-1 text-xs font-medium text-slate-800 transition-colors duration-200 hover:border-brand/40 hover:text-brand-soft">
                 Docker
               </span>
-              <span className="inline-flex items-center rounded-full border border-zinc-700 bg-zinc-800/50 px-3 py-1 text-xs font-medium text-zinc-300">
+              <span className="inline-flex items-center rounded-full border border-slate-300 bg-white/60 px-3 py-1 text-xs font-medium text-slate-800 transition-colors duration-200 hover:border-brand/40 hover:text-brand-soft">
                 CI/CD
               </span>
-              <span className="inline-flex items-center rounded-full border border-zinc-700 bg-zinc-800/50 px-3 py-1 text-xs font-medium text-zinc-300">
+              <span className="inline-flex items-center rounded-full border border-slate-300 bg-white/60 px-3 py-1 text-xs font-medium text-slate-800 transition-colors duration-200 hover:border-brand/40 hover:text-brand-soft">
                 Ansible
               </span>
-              <span className="inline-flex items-center rounded-full border border-zinc-700 bg-zinc-800/50 px-3 py-1 text-xs font-medium text-zinc-300">
+              <span className="inline-flex items-center rounded-full border border-slate-300 bg-white/60 px-3 py-1 text-xs font-medium text-slate-800 transition-colors duration-200 hover:border-brand/40 hover:text-brand-soft">
                 Proxmox
               </span>
-              <span className="inline-flex items-center rounded-full border border-zinc-700 bg-zinc-800/50 px-3 py-1 text-xs font-medium text-zinc-300">
+              <span className="inline-flex items-center rounded-full border border-slate-300 bg-white/60 px-3 py-1 text-xs font-medium text-slate-800 transition-colors duration-200 hover:border-brand/40 hover:text-brand-soft">
                 Linux
               </span>
             </div>
@@ -69,17 +69,17 @@ export default function HeroSection() {
 function ProfileCard() {
   return (
     // <div className="relative w-64 sm:w-72">
-    //   <div className="aspect-square overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 shadow-lg shadow-black/20">
-    //     <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-zinc-800 to-zinc-900">
-    //       <span className="text-4xl font-bold text-zinc-600">SM</span>
+    //   <div className="aspect-square overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg shadow-black/20">
+    //     <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900">
+    //       <span className="text-4xl font-bold text-slate-700">SM</span>
     //     </div>
     //   </div>
-    //   <div className="absolute -bottom-2 -right-2 h-3 w-3 rounded-full border-2 border-zinc-950 bg-emerald-500" />
+    //   <div className="absolute -bottom-2 -right-2 h-3 w-3 rounded-full border-2 border-surface bg-brand" />
     // </div>
 
 
 <div className="relative w-64 sm:w-72">
-  <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 shadow-lg shadow-black/20">
+  <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg shadow-black/20">
     <Image
       src="/images/image.jpeg"
       alt="Profile"
@@ -89,7 +89,7 @@ function ProfileCard() {
     />
   </div>
 
-  <div className="absolute -bottom-2 -right-2 h-3 w-3 rounded-full border-2 border-zinc-950 bg-emerald-500" />
+  <div className="absolute -bottom-2 -right-2 h-3 w-3 rounded-full border-2 border-surface bg-brand" />
 </div>
   );
 }

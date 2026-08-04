@@ -23,13 +23,13 @@ export default function CodeBlock({ children, className = "", ...props }) {
   const language = match ? match[1] : "";
 
   return (
-    <div className="group relative my-4 overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900">
+    <div className="group relative my-4 overflow-hidden rounded-lg border border-slate-200 bg-white">
       {language && (
-        <div className="flex items-center justify-between border-b border-zinc-800 bg-zinc-900/80 px-4 py-2">
-          <span className="text-xs font-medium text-zinc-500">{language}</span>
+        <div className="flex items-center justify-between border-b border-slate-200 bg-white/80 px-4 py-2">
+          <span className="text-xs font-medium text-slate-700">{language}</span>
           <button
             onClick={handleCopy}
-            className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300"
+            className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs text-slate-700 transition-colors hover:bg-slate-200 hover:text-slate-800"
             aria-label="Copy code"
           >
             {copied ? (

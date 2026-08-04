@@ -13,10 +13,10 @@ export default function BlogsPage() {
       <Container>
         <div className="space-y-8">
           <div className="space-y-2">
-            <h1 className="text-2xl font-bold tracking-tight text-zinc-100 sm:text-3xl">
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
               Blogs
             </h1>
-            <p className="text-sm text-zinc-400">
+            <p className="text-sm text-slate-700">
               Thoughts on DevOps, infrastructure engineering, and building reliable systems.
             </p>
           </div>
