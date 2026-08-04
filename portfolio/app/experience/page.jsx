@@ -8,7 +8,7 @@ export default function ExperiencePage() {
   return (
     <section className="py-16 sm:py-24">
       <Container>
-        <div className="mx-auto max-w-3xl space-y-8">
+        {/* <div className="mx-auto max-w-3xl space-y-8"> */}
           <div className="space-y-2">
             <h1 className="text-2xl font-bold tracking-tight text-zinc-100 sm:text-3xl">
               Experience
@@ -19,7 +19,7 @@ export default function ExperiencePage() {
           </div>
 
           <ExperienceSelector />
-        </div>
+        {/* </div> */}
       </Container>
     </section>
   );

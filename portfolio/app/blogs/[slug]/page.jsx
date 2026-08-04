@@ -1,5 +1,6 @@
+import GithubSlugger from "github-slugger";
 import { notFound } from "next/navigation";
-import { getAllBlogPosts, getBlogPost, getAllBlogSlugs } from "@/lib/blog";
+import { getBlogPost, getAllBlogSlugs } from "@/lib/blog";
 import { generateBlogPostMetadata } from "@/lib/metadata";
 import { renderMDX } from "@/lib/mdx";
 import Container from "@/components/layout/container";
@@ -21,15 +22,13 @@ export async function generateMetadata({ params }) {
 function extractHeadings(content) {
   const headingRegex = /^#{2,3}\s+(.+)$/gm;
   const headings = [];
+  const slugger = new GithubSlugger();
   let match;
 
   while ((match = headingRegex.exec(content)) !== null) {
     const text = match[1].trim();
     const level = match[0].indexOf(" ");
-    const id = text
-      .toLowerCase()
-      .replace(/[^\w\s-]/g, "")
-      .replace(/[\s]+/g, "-");
+    const id = slugger.slug(text);
 
     headings.push({ id, text, level: level <= 3 ? 2 : 3 });
   }
