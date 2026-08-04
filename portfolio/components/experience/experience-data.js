@@ -14,7 +14,7 @@ export const workExperience = [
     id: "startsmall-webdev",
     company: "STARTsmall Pvt. Ltd.",
     role: "Web Developer",
-    period: "September 2025 – Present",
+    period: "September 2025 –February 2026",
     highlights: [
       "Developed scalable full-stack applications and backend system architectures utilizing Next.js, Node.js, PostgreSQL, and Firebase.",
       "Secured authentication and authorization for user-friendly platforms.",
